@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob:; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; manifest-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>JARVIS Vault</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="wrap">
+<section id="lock">
+  <form class="lockbox" id="lockform" autocomplete="on">
+    <div class="kicker">JARVIS · Vault</div>
+    <h1>Locked<span>.</span></h1>
+    <p>Everything in this vault is encrypted. Paste your vault password to open it on this device.</p>
+    <label for="pw">Vault password</label>
+    <input id="pw" name="password" type="password" autocomplete="current-password" spellcheck="false" autocapitalize="off" required>
+    <button class="btn primary" id="unlock" type="submit">Unlock</button>
+    <div class="err" id="err" role="alert"></div>
+    <div class="fine">Nothing is stored on this device. The vault re-locks after 15 minutes without activity, or when you tap Lock.</div>
+  </form>
+</section>
+
+<section id="vault" hidden>
+  <nav class="topnav">
+    <div class="kicker">JARVIS · Vault</div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-logs" aria-selected="true" type="button">Log Center</button>
+      <button class="tab" role="tab" id="tab-cal" aria-selected="false" type="button">Calendar</button>
+      <button class="tab" role="tab" id="tab-docs" aria-selected="false" type="button">Documents</button>
+    </div>
+    <button class="btn" id="relock" type="button">Lock</button>
+  </nav>
+
+  <div id="view-logs">
+    <header class="lc-head">
+      <h1>Log Center<span>.</span></h1>
+      <p>Every meaningful event, explained. Search anything: a word, a tool, a decision, a document.</p>
+      <div class="stats" id="stats"></div>
+    </header>
+    <div class="searchrow">
+      <input id="q" type="search" placeholder="Search the log" autocomplete="off" spellcheck="false" aria-label="Search the log">
+    </div>
+    <div class="filters">
+      <div class="chips" id="typechips" aria-label="Filter by type"></div>
+      <label class="areasel"><span>Area</span><select id="area" aria-label="Filter by area"></select></label>
+    </div>
+    <div class="count" id="count"></div>
+    <div id="feed"></div>
+  </div>
+
+  <div id="view-cal" hidden>
+    <header class="lc-head"><h1>Calendar<span>.</span></h1><p>Each day's approvals, events and plans. Tap a day to see everything that happened or is due.</p></header>
+    <div class="calbar">
+      <button class="btn" id="cal-prev" type="button" aria-label="Previous month">‹</button>
+      <div class="calmonth" id="cal-month"></div>
+      <button class="btn" id="cal-next" type="button" aria-label="Next month">›</button>
+      <button class="btn" id="cal-today" type="button">Today</button>
+    </div>
+    <div class="legend"><span><i class="dot d-approval"></i>Approvals</span><span><i class="dot d-event"></i>Events</span><span><i class="dot d-plan"></i>Scheduled</span></div>
+    <div class="calgrid" id="cal-grid" role="grid"></div>
+    <section class="agenda" id="agenda"></section>
+    <h2>To schedule</h2>
+    <div id="unsched"></div>
+  </div>
+
+  <div id="view-docs" hidden>
+    <h2>Register</h2>
+    <div class="reg"><table>
+      <thead><tr><th>No.</th><th>Document</th><th>Version</th><th>Issued</th><th>Pages</th><th>Status</th><th></th></tr></thead>
+      <tbody id="reg"></tbody>
+    </table></div>
+    <h2>Shelf</h2>
+    <div class="shelf" id="shelf"></div>
+    <h2>Editable companions</h2>
+    <div class="comp" id="comp"></div>
+  </div>
+</section>
+</div>
+
+<div id="reader" hidden>
+  <div class="rbar">
+    <button class="btn" id="back" type="button">← Back</button>
+    <div class="rt"><b id="r-title"></b><span id="r-sub"></span></div>
+    <button class="btn primary" id="save" type="button">Save PDF</button>
+  </div>
+  <div id="pages"></div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="app.js"></script>
+</body></html>
